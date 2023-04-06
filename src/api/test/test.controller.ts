@@ -1,4 +1,4 @@
-import {Controller, Get, Post} from '@nestjs/common';
+import {Body, Controller, Get, Post} from '@nestjs/common';
 import { TestService } from './test.service';
 import {dynamoDBInstance} from "../../db/dynamoDBInstance";
 import { v4 as uuid } from 'uuid';
@@ -92,5 +92,12 @@ export class TestController {
     }
     const dynamoDBTable = this.dynamoDBInstance.getAllItem(params);
     return dynamoDBTable;
+  }
+
+  @Post("/insertItem")
+  async insertItem2(@Body() body): Promise<any> {
+    const dynamoDBTableList = await this.dynamoDBInstance.insertItem(body);
+    console.log(dynamoDBTableList);
+    return dynamoDBTableList;
   }
 }

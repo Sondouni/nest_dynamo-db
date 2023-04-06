@@ -50,22 +50,8 @@ export class dynamoDBInstance{
         });
     }
 
-    insertItem(params):any{
-        this.awsInstanceDoc.put(params, function(err, data) {
-            if (err) {
-                const errResult = JSON.stringify(err, null, 2);
-                console.log(
-                    "Unable to insert item. Error JSON: ",
-                    errResult
-                );
-            } else {
-                const result = JSON.stringify(data, null, 2);
-                console.log(
-                    "insert success description JSON: ",
-                    result
-                );
-            }
-        });
+    async insertItem(params):Promise<any>{
+        return await this.awsInstanceDoc.put(params).promise();
     }
 
     async getTable(params):Promise<any>{
